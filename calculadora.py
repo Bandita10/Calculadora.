@@ -34,6 +34,22 @@ def TemaClaro(*args):
     estilos_botones_restantes.configure('botones_restantes.TButton', background="#CECECE", foreground="black")
     estilos_botones_restantes.map('botones_restantes.TButton', background=[('active', '#858585')])
     
+def ingresarValores(tecla):
+    if tecla >= '0' and tecla <= '9' or tecla == '(' or tecla == ')' or tecla == '.':
+        entrada2.set(entrada2.get() + tecla)
+
+    if tecla == '*' or tecla == '/' or tecla == '+' or tecla == '-':
+        if tecla == '*':
+            entrada1.set(entrada2.get() + '*')
+        elif tecla == '/':
+            entrada1.set(entrada2.get() + '/')
+        elif tecla == '+':
+            entrada1.set(entrada2.get() + '+')
+        elif tecla == '-':
+            entrada1.set(entrada2.get() + '-')
+
+        entrada2.set('')
+
 root = Tk()
 root.title("Calculadora")
 #Coordenadas de donde saldra la interfaz grafica.
@@ -87,30 +103,30 @@ estilos_botones_restantes = ttk.Style()
 estilos_botones_restantes.configure('botones_restantes.TButton', font="arial 15", width=5, relief="flat", background="#20B2AA")
 
 #Aqui se crean los botones del 0 al 9.
-Button0 = ttk.Button(mainframe, text="0", style="botones_numeros.TButton")
-Button1 = ttk.Button(mainframe, text="1", style="botones_numeros.TButton")
-Button2 = ttk.Button(mainframe, text="2", style="botones_numeros.TButton")
-Button3 = ttk.Button(mainframe, text="3", style="botones_numeros.TButton")
-Button4 = ttk.Button(mainframe, text="4", style="botones_numeros.TButton")
-Button5 = ttk.Button(mainframe, text="5", style="botones_numeros.TButton")
-Button6 = ttk.Button(mainframe, text="6", style="botones_numeros.TButton")
-Button7 = ttk.Button(mainframe, text="7", style="botones_numeros.TButton")
-Button8 = ttk.Button(mainframe, text="8", style="botones_numeros.TButton")
-Button9 = ttk.Button(mainframe, text="9", style="botones_numeros.TButton")
+Button0 = ttk.Button(mainframe, text="0", style="botones_numeros.TButton", command=lambda: ingresarValores('0'))
+Button1 = ttk.Button(mainframe, text="1", style="botones_numeros.TButton", command=lambda: ingresarValores('1'))
+Button2 = ttk.Button(mainframe, text="2", style="botones_numeros.TButton", command=lambda: ingresarValores('2'))
+Button3 = ttk.Button(mainframe, text="3", style="botones_numeros.TButton", command=lambda: ingresarValores('3'))
+Button4 = ttk.Button(mainframe, text="4", style="botones_numeros.TButton", command=lambda: ingresarValores('4'))
+Button5 = ttk.Button(mainframe, text="5", style="botones_numeros.TButton", command=lambda: ingresarValores('5'))
+Button6 = ttk.Button(mainframe, text="6", style="botones_numeros.TButton", command=lambda: ingresarValores('6'))
+Button7 = ttk.Button(mainframe, text="7", style="botones_numeros.TButton", command=lambda: ingresarValores('7'))
+Button8 = ttk.Button(mainframe, text="8", style="botones_numeros.TButton", command=lambda: ingresarValores('8'))
+Button9 = ttk.Button(mainframe, text="9", style="botones_numeros.TButton", command=lambda: ingresarValores('9'))
 
 #Aqui se crean los botones de Borrar, Borrrar_todo, parentesis y punto.
 Button_borrar = ttk.Button(mainframe, text=chr(9003), style="botones_borrar.TButton")
 Button_borrar_todo = ttk.Button(mainframe, text="C", style="botones_borrar.TButton")
-Button_parentesis1 = ttk.Button(mainframe, text="(", style="botones_restantes.TButton")
-Button_parentesis2 = ttk.Button(mainframe, text=")", style="botones_restantes.TButton")
-Button_punto = ttk.Button(mainframe, text=".", style="botones_restantes.TButton")
+Button_parentesis1 = ttk.Button(mainframe, text="(", style="botones_restantes.TButton", command=lambda: ingresarValores('('))
+Button_parentesis2 = ttk.Button(mainframe, text=")", style="botones_restantes.TButton", command=lambda: ingresarValores(')'))
+Button_punto = ttk.Button(mainframe, text=".", style="botones_restantes.TButton", command=lambda: ingresarValores('.'))
 
 #Aqui se crean los botones de opeaciones.
-Button_division = ttk.Button(mainframe, text=chr(247), style="botones_restantes.TButton")
-Button_multiplicacion = ttk.Button(mainframe, text="x", style="botones_restantes.TButton")
-Button_resta = ttk.Button(mainframe, text="-", style="botones_restantes.TButton")
-Button_suma = ttk.Button(mainframe, text="+", style="botones_restantes.TButton")
-Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton")
+Button_division = ttk.Button(mainframe, text=chr(247), style="botones_restantes.TButton", command=lambda: ingresarValores('/'))
+Button_multiplicacion = ttk.Button(mainframe, text="x", style="botones_restantes.TButton", command=lambda: ingresarValores('*'))
+Button_resta = ttk.Button(mainframe, text="-", style="botones_restantes.TButton", command=lambda: ingresarValores('-'))
+Button_suma = ttk.Button(mainframe, text="+", style="botones_restantes.TButton", command=lambda: ingresarValores('+'))
+Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton", command=lambda: ingresarValores('3.1416'))
 Button_sin = ttk.Button(mainframe, text="sin", style="botones_restantes.TButton")
 Button_cos = ttk.Button(mainframe, text="cos", style="botones_restantes.TButton")
 Button_tan = ttk.Button(mainframe, text="tan", style="botones_restantes.TButton")
@@ -120,7 +136,7 @@ Button_exp = ttk.Button(mainframe, text="exp", style="botones_restantes.TButton"
 Button_sqrt = ttk.Button(mainframe, text="sqrt", style="botones_restantes.TButton")
 Button_cbrt = ttk.Button(mainframe, text="cbrt", style="botones_restantes.TButton")
 Button_e = ttk.Button(mainframe, text="e", style="botones_restantes.TButton")
-Button_igual = ttk.Button(mainframe, text="=", style="botones_restantes.TButton")
+Button_igual = ttk.Button(mainframe, text="=", style="botones_restantes.TButton", command=lambda: ingresarValores('='))
 Button_raiz_cuadrada = ttk.Button(mainframe, text="√", style="botones_restantes.TButton")
 Button_x = ttk.Button(mainframe, text="x", style="botones_restantes.TButton")
 Button_y = ttk.Button(mainframe, text="y", style="botones_restantes.TButton")
