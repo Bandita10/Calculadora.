@@ -7,18 +7,33 @@ import math
 def TemaObscuro(*args):
     estilos.configure('mainframe.Frame', background="#010924")
 
-    estilos_label1.configure('Label1.TLabel', background="#010924", foreground="black")
-    estilos_label2.configure('Label2.TLabel', background="#010924", foreground="black")
+    estilos_label1.configure('Label1.TLabel', background="#010924", foreground="white")
+    estilos_label2.configure('Label2.TLabel', background="#010924", foreground="white")
 
-    estilos_botones_numeros.configure('botones_numeros.TButton', background="#00044A", foreground="green")
-    estilos_botones_numeros.map('botones_numeros.Tbutton', background=[('#020A90')])
+    estilos_botones_numeros.configure('botones_numeros.TButton', background="#483D8B", foreground="white")
+    estilos_botones_numeros.map('botones_numeros.TButton', background=[('active', '#020A90')])
 
-    estilos_botones_borrar.configure('botones_borrar.TButton', background="#010924", foreground="green")
-    estilos_botones_borrar.map('botones_borrar.TButton', background=[('active', '#000AB1')])
+    estilos_botones_borrar.configure('botones_borrar.TButton', background="#191970", foreground="white")
+    estilos_botones_borrar.map('botones_borrar.TButton', background=[('active', '#020A90')])
 
-    estilos_botones_restantes.configure('botones_restantes.TButton', background="#010924", foreground="green")
-    estilos_botones_restantes.map('botones_restantes.TButton', background=[('active', '#000AB1')])
+    estilos_botones_restantes.configure('botones_restantes.TButton', background="#191970", foreground="white")
+    estilos_botones_restantes.map('botones_restantes.TButton', background=[('active', '#020A90')])
 
+def TemaClaro(*args):
+    estilos.configure('mainframe.TFrame', background="#DBDBDB", foreground="black")
+
+    estilos_label1.configure('Label1.TLabel', background="#DBDBDB", foreground="black")
+    estilos_label2.configure('Label2.TLabel', background="#DBDBDB", foreground="black")
+
+    estilos_botones_numeros.configure('botones_numeros.TButton', background="#FFFFFF", foreground="black")
+    estilos_botones_numeros.map('botones_numeros.TButton', background=[('active', '#B9B9B9')])
+    
+    estilos_botones_borrar.configure('botones_borrar.TButton', background="#CECECE", foreground="black")
+    estilos_botones_borrar.map('botones_borrar.TButton', background=[('active', '#858585')])
+
+    estilos_botones_restantes.configure('botones_restantes.TButton', background="#CECECE", foreground="black")
+    estilos_botones_restantes.map('botones_restantes.TButton', background=[('active', '#858585')])
+    
 root = Tk()
 root.title("Calculadora")
 #Coordenadas de donde saldra la interfaz grafica.
@@ -158,5 +173,6 @@ for child in mainframe.winfo_children():
     child.grid_configure(ipady=10, padx=1, pady=1)
 
 root.bind('<KeyPress-o>', TemaObscuro)
+root.bind('<KeyPress-c>', TemaClaro)
 
 root, mainloop()
