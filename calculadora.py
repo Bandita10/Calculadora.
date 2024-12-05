@@ -170,6 +170,24 @@ def calcular_cbrt():
     except ValueError:
         entrada2.set("Error: Ingresa un número válido")
 
+def calcular_con_pi():
+    try:
+        valor = float(entrada2.get())
+        resultado = math.pi * valor
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_e():
+    #"Calcula la raíz cúbica de un número positivo."
+    try:
+        valor = float(entrada2.get())
+        if valor < 0:
+            raise ValueError("El número debe ser positivo.")
+        resultado = math.cbrt(valor)
+        entrada2.set(resultado)
+    except ValueError as e:
+        entrada2.set(f"Error: {e}")
 
 root = Tk()
 root.title("Calculadora")
@@ -247,7 +265,7 @@ Button_division = ttk.Button(mainframe, text=chr(247), style="botones_restantes.
 Button_multiplicacion = ttk.Button(mainframe, text="x", style="botones_restantes.TButton", command=lambda: ingresarValores('*'))
 Button_resta = ttk.Button(mainframe, text="-", style="botones_restantes.TButton", command=lambda: ingresarValores('-'))
 Button_suma = ttk.Button(mainframe, text="+", style="botones_restantes.TButton", command=lambda: ingresarValores('+'))
-Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton", command=lambda: ingresarValores('3.1416'))
+Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton", command=lambda: calcular_con_pi())
 Button_sin = ttk.Button(mainframe, text="sin", style="botones_restantes.TButton", command=lambda: calcular_seno())
 Button_cos = ttk.Button(mainframe, text="cos", style="botones_restantes.TButton", command=lambda: calcular_coseno())
 Button_tan = ttk.Button(mainframe, text="tan", style="botones_restantes.TButton", command=lambda: calcular_tangente())
@@ -256,7 +274,7 @@ Button_log = ttk.Button(mainframe, text="log", style="botones_restantes.TButton"
 Button_exp = ttk.Button(mainframe, text="exp", style="botones_restantes.TButton", command=lambda: calcular_exp())
 Button_sqrt = ttk.Button(mainframe, text="sqrt", style="botones_restantes.TButton", command=lambda: calcular_sqrt())
 Button_cbrt = ttk.Button(mainframe, text="cbrt", style="botones_restantes.TButton", command=lambda: calcular_cbrt())
-Button_e = ttk.Button(mainframe, text="e", style="botones_restantes.TButton")
+Button_e = ttk.Button(mainframe, text="e", style="botones_restantes.TButton", command=lambda: calcular_e())
 Button_igual = ttk.Button(mainframe, text="=", style="botones_restantes.TButton", command=lambda: ingresarValores('='))
 Button_raiz_cuadrada = ttk.Button(mainframe, text="√", style="botones_restantes.TButton", command=lambda: raizCuadrada())
 Button_x = ttk.Button(mainframe, text="x", style="botones_restantes.TButton")
