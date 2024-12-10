@@ -98,21 +98,59 @@ def borrarTodo(*args):
     entrada1.set('')
     entrada2.set('')
 
-def resolver_ecuacion_primer_grado():
-    ecuacion = entrada2.get()  # Obtener la ecuación ingresada por el usuario
+def resolver_ecuacion_primer_orden(ecuacion, x0, y0, h, n):
+  """
+  Resuelve una ecuación diferencial de primer orden utilizando el método de Euler.
 
-    # Utilizar expresiones regulares para extraer los coeficientes
-    match = re.match(r"(-?\d*)x\s*([+-]\s*\d+)", ecuacion)
-    if match:
-        a = float(match.group(1) or 1)  # Si no hay coeficiente para x, asumimos a=1
-        b = float(match.group(2))
-        if a == 0:
-            entrada2.set("Error: No se puede dividir por cero")
-        else:
-            x = -b / a
-            entrada2.set(f"x = {x}")
-    else:
-        entrada2.set("Error: Formato de ecuación inválido")
+  Args:
+    ecuacion: Una cadena que representa la ecuación diferencial.
+    x0: Valor inicial de x.
+    y0: Valor inicial de y.
+    h: Tamaño del paso.
+    n: Número de pasos.
+
+  Returns:
+    Una lista de tuplas (x, y) representando los puntos de la solución aproximada.
+  """
+
+  # Convertir la cadena a una expresión simbólica
+  y, x = sp.symbols('y x')
+  ecuacion_simbolica = sp.sympify(ecuacion)
+  f = sp.lambdify((x, y), ecuacion_simbolica.rhs)
+
+  # Inicializar las listas para almacenar los valores de x e y
+  x_values = [x0]
+  y_values = [y0]
+
+  # Aplicar el método de Euler
+  for i in range(n):
+    x_next = x_values[-1] + h
+    y_next = y_values[-1] + h * f(x_values[-1], y_values[-1])
+    x_values.append(x_next)
+    y_values.append(y_next)
+
+  return list(zip(x_values, y_values))
+
+def resolver_ecuacion():
+    # Obtener la ecuación diferencial y los parámetros
+    # (Suponiendo que ya tienes esto implementado)
+    ecuacion = entrada_ecuacion.get()
+    x0 = float(entrada_x0.get())
+    y0 = float(entrada_y0.get())
+    h = float(entrada_h.get())
+    n = int(entrada_n.get())
+
+    # Llamar a la función que resuelve la ecuación de primer orden
+    solucion = resolver_ecuacion_primer_orden(ecuacion, x0, y0, h, n)
+
+    entrada2.set('')
+
+    if tecla == '=':
+        entrada1.set(entrada1.get() + entrada2.get())
+        resultado = eval(entrada1.get())
+        entrada2.set(resultado)
+    # Mostrar la solución en el botón (o en otro lugar de la interfaz)
+    boton_resolver.config(text=f"Solución: {solucion}")
 
         
 root = Tk()
@@ -212,7 +250,7 @@ Button_asinh = ttk.Button(mainframe, text="asinh", style="botones_restantes.TBut
 Button_acosh = ttk.Button(mainframe, text="acosh", style="botones_restantes.TButton", command=lambda: ingresarValores('acosh ('))
 Button_atanh = ttk.Button(mainframe, text="atanh", style="botones_restantes.TButton", command=lambda: ingresarValores('atanh ('))
 Button_actanh = ttk.Button(mainframe, text="actanh", style="botones_restantes.TButton", command=lambda: ingresarValores('actanh ('))
-Button_resolver = ttk.Button(mainframe, text="Resolver",style="botones_restantes.TButton", command=lambda: ingresarValores('resolver'))
+Button_resolver = ttk.Button(mainframe, text="Resolver",style="botones_restantes.TButton", command=lambda: resolver_ecuacion('Resolver'))
 
 Button_d = ttk.Button(mainframe, text="d",style="botones_restantes.TButton", command=lambda: ingresarValores('d'))
 Button_igual = ttk.Button(mainframe, text="=", style="botones_restantes.TButton", command=lambda: ingresarValores('='))
