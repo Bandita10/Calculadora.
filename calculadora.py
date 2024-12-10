@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 # Código todas las funciones y constantes matemáticas predefinidas que ofrece el módulo
 import math
-import re
+
 
 def TemaObscuro(*args):
     estilos.configure('mainframe.Frame', background="#010924")
@@ -36,10 +36,10 @@ def TemaClaro(*args):
     estilos_botones_restantes.map('botones_restantes.TButton', background=[('active', '#858585')])
     
 def ingresarValores(tecla):
-    if tecla >= '0' and tecla <= '9' or tecla == '(' or tecla == ')' or tecla == '.':
+    if tecla >= '0' and tecla <= '9' or tecla == '(' or tecla == ')' or tecla == '.' :
         entrada2.set(entrada2.get() + tecla)
 
-    if tecla == '*' or tecla == '/' or tecla == '+' or tecla == '-':
+    if tecla == '*' or tecla == '/' or tecla == '+' or tecla == '-' :
         if tecla == '*':
             entrada1.set(entrada2.get() + '*')
         elif tecla == '/':
@@ -48,7 +48,7 @@ def ingresarValores(tecla):
             entrada1.set(entrada2.get() + '+')
         elif tecla == '-':
             entrada1.set(entrada2.get() + '-')
-        
+            
         entrada2.set('')
 
     if tecla == '=':
@@ -96,216 +96,6 @@ def borrarTodo(*args):
     entrada1.set('')
     entrada2.set('')
 
-def calcular_seno():
-    try:
-        # Obtener el valor ingresado por el usuario (asumiendo que está en entrada2)
-        valor = float(entrada2.get())
-        
-        # Calcular el seno del valor en radianes
-        resultado = math.sin(math.radians(valor))
-        
-        # Mostrar el resultado en la entrada 2
-        entrada2.set(resultado)
-    except ValueError:
-        # Manejar el caso en el que el usuario ingresa un valor no válido
-        entrada2.set("Error: Ingresa un número válido")
-   
-def calcular_coseno():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.cos(math.radians(valor))
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_tangente():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.tan(math.radians(valor))
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-    except ZeroDivisionError:
-        entrada2.set("Error: La tangente de 90 grados no está definida")
-
-def calcular_cotangente():
-    try:
-        valor = float(entrada2.get())
-        if math.sin(math.radians(valor)) == 0:
-            entrada2.set("Error: La cotangente de 0 y 180 grados no está definida")
-        else:
-            resultado = 1 / math.tan(math.radians(valor))
-            entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_log():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.log(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_exp():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.exp(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_sqrt():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.sqrt(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_cbrt():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.cbrt(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_con_pi():
-    try:
-        valor = float(entrada2.get())
-        resultado = math.pi * valor
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_e():
-    #"Calcula la raíz cúbica de un número positivo."
-    try:
-        valor = float(entrada2.get())
-        if valor < 0:
-            raise ValueError("El número debe ser positivo.")
-        resultado = math.cbrt(valor)
-        entrada2.set(resultado)
-    except ValueError as e:
-        entrada2.set(f"Error: {e}")
-
-def calcula_asin():
-    # Aquí va el código para realizar el cálculo del arcoseno
-    try:    
-        valor = float(entrada2.get())  # Suponiendo que "entrada" es un widget para ingresar el valor
-        resultado = math.asin(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_acos():
-    """Calcula el arcocoseno de un número."""
-    try:
-        valor = float(entrada2.get())  # Suponiendo que "entrada2" es un widget para ingresar el valor
-        resultado = math.acos(valor)  # Cambiamos a math.acos()
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido entre -1 y 1")
-
-def calcular_atan():
-    """Calcula la arcotangente de un número."""
-    try:
-        valor = float(entrada2.get())
-        resultado = math.atan(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_atan_grados():
-    """Calcula la arcotangente de un número y devuelve el resultado en grados."""
-    try:
-        valor = float(entrada2.get())
-        resultado_radianes = math.atan(valor)
-        resultado_grados = resultado_radianes * 180 / math.pi
-        entrada2.set(resultado_grados)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_sinh():
-    """Calcula el seno hiperbólico de un número."""
-    try:
-        valor = float(entrada2.get())
-        resultado = math.sinh(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_cosh():
-    """Calcula el coseno hiperbólico de un número."""
-    try:
-        valor = float(entrada2.get())
-        resultado = math.cosh(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_tanh():
-    """Calcula la tangente hiperbólica de un número."""
-    try:
-        valor = float(entrada2.get())
-        resultado = math.tanh(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_ctanh(x):
-    """Calcula la cotangente hiperbólica de un número."""
-    if x == 0:
-        return "Error: División por cero"
-    else:
-        return math.cosh(x) / math.sinh(x)
-
-def calcular_asinh():
-    """Calcula el seno hiperbólico inverso de un número."""
-    try:
-        valor = float(entrada2.get())
-        resultado = math.asinh(valor)
-        entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_acosh():
-    """Calcula el coseno hiperbólico inverso de un número."""
-    try:
-        valor = float(entrada2.get())
-        if valor < 1:
-            entrada2.set("Error: El valor debe ser mayor o igual a 1")
-        else:
-            resultado = math.acosh(valor)
-            entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_atanh():
-    """Calcula la tangente hiperbólica inversa de un número."""
-    try:
-        valor = float(entrada2.get())
-        if abs(valor) >= 1:
-            entrada2.set("Error: El valor debe estar entre -1 y 1")
-        else:
-            resultado = math.atanh(valor)
-            entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
-def calcular_actanh():
-    """Calcula la cotangente hiperbólica inversa de un número."""
-    try:
-        valor = float(entrada2.get())
-        if abs(valor) <= 1:
-            entrada2.set("Error: El valor debe ser menor a -1 o mayor a 1")
-        else:
-            resultado = math.log((valor + 1) / (valor - 1)) / 2
-            entrada2.set(resultado)
-    except ValueError:
-        entrada2.set("Error: Ingresa un número válido")
-
 def calcular_potencia():
 
     try:
@@ -343,6 +133,15 @@ def resolver_ecuacion_primer_grado():
     else:
         entrada2.set("Error: Formato de ecuación inválido")
 
+def ingresarValore2(tecla2):
+    if tecla2 == 'sin' or tecla2 == 'cos' or tecla2 == 'asin' or tecla2 == 'acos' or tecla2 == 'tan' or tecla2 == 'ctan' or tecla2 == 'atan' or tecla2 == 'actan' or tecla2 == 'log' or tecla2 == 'exp' or tecla2 == 'sinh' or tecla2 == 'cos' or tecla2 == 'sqrt' or tecla2 == 'cbrt' or tecla2 == 'tanh' or tecla2 == 'ctanh' or tecla2 == 'asinh' or tecla2 == 'acosh' or tecla2 == 'atanh' or tecla2 == 'actanh' or tecla2 == 'cosh ':
+            # Concatenar 'sin(' y ')' para indicar la función seno
+            entrada2.set(entrada2.get() + tecla2 + '(')
+    if tecla2 == 'sin':
+            entrada1.set(entrada2.get())
+    elif tecla2 == 'cos':
+        entrada1.set(entrada2.get())
+ 
 root = Tk()
 root.title("Calculadora")
 #Coordenadas de donde saldra la interfaz grafica.
@@ -420,27 +219,27 @@ Button_division = ttk.Button(mainframe, text=chr(247), style="botones_restantes.
 Button_multiplicacion = ttk.Button(mainframe, text="x", style="botones_restantes.TButton", command=lambda: ingresarValores('*'))
 Button_resta = ttk.Button(mainframe, text="-", style="botones_restantes.TButton", command=lambda: ingresarValores('-'))
 Button_suma = ttk.Button(mainframe, text="+", style="botones_restantes.TButton", command=lambda: ingresarValores('+'))
-Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton", command=lambda: calcular_con_pi())
-Button_sin = ttk.Button(mainframe, text="sin", style="botones_restantes.TButton", command=lambda: calcular_seno())
-Button_cos = ttk.Button(mainframe, text="cos", style="botones_restantes.TButton", command=lambda: calcular_coseno())
-Button_tan = ttk.Button(mainframe, text="tan", style="botones_restantes.TButton", command=lambda: calcular_tangente())
-Button_ctan = ttk.Button(mainframe, text="ctan", style="botones_restantes.TButton", command=lambda: calcular_cotangente())
-Button_log = ttk.Button(mainframe, text="log", style="botones_restantes.TButton", command=lambda: calcular_log())
-Button_exp = ttk.Button(mainframe, text="exp", style="botones_restantes.TButton", command=lambda: calcular_exp())
-Button_sqrt = ttk.Button(mainframe, text="sqrt", style="botones_restantes.TButton", command=lambda: calcular_sqrt())
-Button_cbrt = ttk.Button(mainframe, text="cbrt", style="botones_restantes.TButton", command=lambda: calcular_cbrt())
-Button_asin = ttk.Button(mainframe, text="asin", style="botones_restantes.TButton", command=lambda: calcula_asin())
-Button_acos = ttk.Button(mainframe, text="acos", style="botones_restantes.TButton", command=lambda: calcular_acos())
-Button_atan = ttk.Button(mainframe, text="atan", style="botones_restantes.TButton", command=lambda: calcular_atan())
-Button_actan = ttk.Button(mainframe, text="actan", style="botones_restantes.TButton", command=lambda: calcular_atan_grados())
-Button_sinh = ttk.Button(mainframe, text="sinh", style="botones_restantes.TButton", command=lambda: calcular_sinh())
-Button_cosh = ttk.Button(mainframe, text="cosh", style="botones_restantes.TButton", command=lambda: calcular_cosh())
-Button_tanh = ttk.Button(mainframe, text="tanh", style="botones_restantes.TButton", command=lambda: calcular_tanh())
-Button_ctanh = ttk.Button(mainframe, text="ctanh", style="botones_restantes.TButton", command=lambda: calcular_ctanh())
-Button_asinh = ttk.Button(mainframe, text="asinh", style="botones_restantes.TButton", command=lambda: calcular_asinh())
-Button_acosh = ttk.Button(mainframe, text="acosh", style="botones_restantes.TButton", command=lambda: calcular_acosh())
-Button_atanh = ttk.Button(mainframe, text="atanh", style="botones_restantes.TButton", command=lambda: calcular_atanh())
-Button_actanh = ttk.Button(mainframe, text="actanh", style="botones_restantes.TButton", command=lambda: calcular_actanh())
+Button_pi = ttk.Button(mainframe, text="pi", style="botones_restantes.TButton", command=lambda: ingresarValores('3.1416'))
+Button_sin = ttk.Button(mainframe, text="sin", style="botones_restantes.TButton", command=lambda:ingresarValore2 ('sin'))
+Button_cos = ttk.Button(mainframe, text="cos", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('cos'))
+Button_tan = ttk.Button(mainframe, text="tan", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('tan'))
+Button_ctan = ttk.Button(mainframe, text="ctan", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('ctan'))
+Button_log = ttk.Button(mainframe, text="log", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('log'))
+Button_exp = ttk.Button(mainframe, text="exp", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('exp'))
+Button_sqrt = ttk.Button(mainframe, text="sqrt", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('sqrt'))
+Button_cbrt = ttk.Button(mainframe, text="cbrt", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('cbrt'))
+Button_asin = ttk.Button(mainframe, text="asin", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('asin'))
+Button_acos = ttk.Button(mainframe, text="acos", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('acos'))
+Button_atan = ttk.Button(mainframe, text="atan", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('atan'))
+Button_actan = ttk.Button(mainframe, text="actan", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('actan'))
+Button_sinh = ttk.Button(mainframe, text="sinh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('sinh'))
+Button_cosh = ttk.Button(mainframe, text="cosh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('cosh'))
+Button_tanh = ttk.Button(mainframe, text="tanh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('tanh'))
+Button_ctanh = ttk.Button(mainframe, text="ctanh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('ctanh'))
+Button_asinh = ttk.Button(mainframe, text="asinh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('asinh'))
+Button_acosh = ttk.Button(mainframe, text="acosh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('acosh'))
+Button_atanh = ttk.Button(mainframe, text="atanh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('atanh'))
+Button_actanh = ttk.Button(mainframe, text="actanh", style="botones_restantes.TButton", command=lambda: ingresarValore2 ('actanh'))
 Button_resolver = ttk.Button(mainframe, text="1er Grado",style="botones_restantes.TButton", command=lambda: resolver_ecuacion_primer_grado())
 
 Button_e = ttk.Button()
