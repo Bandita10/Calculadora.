@@ -1,8 +1,9 @@
 #Librerias.
 from tkinter import *
 from tkinter import ttk
-#Para sacar la raiz cuadrada
+# Código todas las funciones y constantes matemáticas predefinidas que ofrece el módulo
 import math
+import re
 
 def TemaObscuro(*args):
     estilos.configure('mainframe.Frame', background="#010924")
@@ -189,6 +190,159 @@ def calcular_e():
     except ValueError as e:
         entrada2.set(f"Error: {e}")
 
+def calcula_asin():
+    # Aquí va el código para realizar el cálculo del arcoseno
+    try:    
+        valor = float(entrada2.get())  # Suponiendo que "entrada" es un widget para ingresar el valor
+        resultado = math.asin(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_acos():
+    """Calcula el arcocoseno de un número."""
+    try:
+        valor = float(entrada2.get())  # Suponiendo que "entrada2" es un widget para ingresar el valor
+        resultado = math.acos(valor)  # Cambiamos a math.acos()
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido entre -1 y 1")
+
+def calcular_atan():
+    """Calcula la arcotangente de un número."""
+    try:
+        valor = float(entrada2.get())
+        resultado = math.atan(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_atan_grados():
+    """Calcula la arcotangente de un número y devuelve el resultado en grados."""
+    try:
+        valor = float(entrada2.get())
+        resultado_radianes = math.atan(valor)
+        resultado_grados = resultado_radianes * 180 / math.pi
+        entrada2.set(resultado_grados)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_sinh():
+    """Calcula el seno hiperbólico de un número."""
+    try:
+        valor = float(entrada2.get())
+        resultado = math.sinh(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_cosh():
+    """Calcula el coseno hiperbólico de un número."""
+    try:
+        valor = float(entrada2.get())
+        resultado = math.cosh(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_tanh():
+    """Calcula la tangente hiperbólica de un número."""
+    try:
+        valor = float(entrada2.get())
+        resultado = math.tanh(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_ctanh(x):
+    """Calcula la cotangente hiperbólica de un número."""
+    if x == 0:
+        return "Error: División por cero"
+    else:
+        return math.cosh(x) / math.sinh(x)
+
+def calcular_asinh():
+    """Calcula el seno hiperbólico inverso de un número."""
+    try:
+        valor = float(entrada2.get())
+        resultado = math.asinh(valor)
+        entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_acosh():
+    """Calcula el coseno hiperbólico inverso de un número."""
+    try:
+        valor = float(entrada2.get())
+        if valor < 1:
+            entrada2.set("Error: El valor debe ser mayor o igual a 1")
+        else:
+            resultado = math.acosh(valor)
+            entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_atanh():
+    """Calcula la tangente hiperbólica inversa de un número."""
+    try:
+        valor = float(entrada2.get())
+        if abs(valor) >= 1:
+            entrada2.set("Error: El valor debe estar entre -1 y 1")
+        else:
+            resultado = math.atanh(valor)
+            entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_actanh():
+    """Calcula la cotangente hiperbólica inversa de un número."""
+    try:
+        valor = float(entrada2.get())
+        if abs(valor) <= 1:
+            entrada2.set("Error: El valor debe ser menor a -1 o mayor a 1")
+        else:
+            resultado = math.log((valor + 1) / (valor - 1)) / 2
+            entrada2.set(resultado)
+    except ValueError:
+        entrada2.set("Error: Ingresa un número válido")
+
+def calcular_potencia():
+
+    try:
+        # Obtener la base y el exponente de las entradas
+        base = float(entrada2.get())  # Convertir el texto de entrada1 a número
+        exponente = float(entrada1.get())  # Convertir el texto de entrada2 a número
+        
+        # Calcular la potencia
+        resultado_potencia = base ** exponente
+        
+        # Mostrar el resultado en la etiqueta de resultado
+        entrada2.set(f"Resultado: {resultado_potencia}")
+    except ValueError:
+        # Manejar errores si las entradas no son números válidos
+        entrada2.set("Error: Ingresa números válidos")
+
+def funcion_x():
+    valor_x = entrada2.get()
+    # Suponiendo que hay un label para mostrar el valor
+    entrada2.config(text=f"El valor de x es: {valor_x}")
+
+def resolver_ecuacion_primer_grado():
+    ecuacion = entrada2.get()  # Obtener la ecuación ingresada por el usuario
+
+    # Utilizar expresiones regulares para extraer los coeficientes
+    match = re.match(r"(-?\d*)x\s*([+-]\s*\d+)", ecuacion)
+    if match:
+        a = float(match.group(1) or 1)  # Si no hay coeficiente para x, asumimos a=1
+        b = float(match.group(2))
+        if a == 0:
+            entrada2.set("Error: No se puede dividir por cero")
+        else:
+            x = -b / a
+            entrada2.set(f"x = {x}")
+    else:
+        entrada2.set("Error: Formato de ecuación inválido")
+
 root = Tk()
 root.title("Calculadora")
 #Coordenadas de donde saldra la interfaz grafica.
@@ -223,13 +377,14 @@ estilos_label1.configure('Label1.TLabel', font="arial 15", anchor="e")
 estilos_label2 = ttk.Style()
 estilos_label2.configure('Label2.TLabel', font="arial 40", anchor="e")
 
+#Donde se colocaran los resultados
 entrada1 = StringVar()
 label_entrada1 = ttk.Label(mainframe, textvariable=entrada1, style="Label1.TLabel")
-label_entrada1.grid(column=0, row=0, columnspan=6, sticky=(W, N, E, S))
+label_entrada1.grid(column=0, row=0, columnspan=8, sticky=(W, N, E, S))
 
 entrada2 = StringVar()
 label_entrada2 = ttk.Label(mainframe, textvariable=entrada2, style="Label2.TLabel")
-label_entrada2.grid(column=0, row=1, columnspan=6, sticky=(W, N, E, S))
+label_entrada2.grid(column=0, row=1, columnspan=8, sticky=(W, N, E, S))
 
 #Estilos para los botones
 estilos_botones_numeros = ttk.Style()
@@ -274,55 +429,80 @@ Button_log = ttk.Button(mainframe, text="log", style="botones_restantes.TButton"
 Button_exp = ttk.Button(mainframe, text="exp", style="botones_restantes.TButton", command=lambda: calcular_exp())
 Button_sqrt = ttk.Button(mainframe, text="sqrt", style="botones_restantes.TButton", command=lambda: calcular_sqrt())
 Button_cbrt = ttk.Button(mainframe, text="cbrt", style="botones_restantes.TButton", command=lambda: calcular_cbrt())
-Button_e = ttk.Button(mainframe, text="e", style="botones_restantes.TButton", command=lambda: calcular_e())
+Button_asin = ttk.Button(mainframe, text="asin", style="botones_restantes.TButton", command=lambda: calcula_asin())
+Button_acos = ttk.Button(mainframe, text="acos", style="botones_restantes.TButton", command=lambda: calcular_acos())
+Button_atan = ttk.Button(mainframe, text="atan", style="botones_restantes.TButton", command=lambda: calcular_atan())
+Button_actan = ttk.Button(mainframe, text="actan", style="botones_restantes.TButton", command=lambda: calcular_atan_grados())
+Button_sinh = ttk.Button(mainframe, text="sinh", style="botones_restantes.TButton", command=lambda: calcular_sinh())
+Button_cosh = ttk.Button(mainframe, text="cosh", style="botones_restantes.TButton", command=lambda: calcular_cosh())
+Button_tanh = ttk.Button(mainframe, text="tanh", style="botones_restantes.TButton", command=lambda: calcular_tanh())
+Button_ctanh = ttk.Button(mainframe, text="ctanh", style="botones_restantes.TButton", command=lambda: calcular_ctanh())
+Button_asinh = ttk.Button(mainframe, text="asinh", style="botones_restantes.TButton", command=lambda: calcular_asinh())
+Button_acosh = ttk.Button(mainframe, text="acosh", style="botones_restantes.TButton", command=lambda: calcular_acosh())
+Button_atanh = ttk.Button(mainframe, text="atanh", style="botones_restantes.TButton", command=lambda: calcular_atanh())
+Button_actanh = ttk.Button(mainframe, text="actanh", style="botones_restantes.TButton", command=lambda: calcular_actanh())
+Button_resolver = ttk.Button(mainframe, text="1er Grado",style="botones_restantes.TButton", command=lambda: resolver_ecuacion_primer_grado())
+
+Button_e = ttk.Button()
 Button_igual = ttk.Button(mainframe, text="=", style="botones_restantes.TButton", command=lambda: ingresarValores('='))
 Button_raiz_cuadrada = ttk.Button(mainframe, text="√", style="botones_restantes.TButton", command=lambda: raizCuadrada())
-Button_x = ttk.Button(mainframe, text="x", style="botones_restantes.TButton")
+Button_x = ttk.Button(mainframe, text="x", style="botones_restantes.TButton", command=lambda: funcion_x())
 Button_y = ttk.Button(mainframe, text="y", style="botones_restantes.TButton")
-Button_potencia = ttk.Button(mainframe, text="^", style="botones_restantes.TButton")
+Button_potencia = ttk.Button(mainframe, text="POT", style="botones_restantes.TButton", command=lambda: calcular_potencia())
 
 #colocar botones en pantalla.
 Button_pi.grid(column=0, row=2, sticky=(W, N, E, S))
 Button_parentesis1.grid(column=1, row=2, sticky=(W, N, E, S))
 Button_parentesis2.grid(column=2, row=2, sticky=(W, N, E, S))
-Button_borrar_todo.grid(column=3, row=2, columnspan=2, sticky=(W, N, E, S))
-
-Button_borrar.grid(column=5, row=2, sticky=(W, N, E, S))
+Button_potencia.grid(column=3, row=2, sticky=(W, N, E, S))
+Button_borrar_todo.grid(column=4, row=2, columnspan=2, sticky=(W, N, E, S))
+Button_borrar.grid(column=6, row=2, columnspan=2, sticky=(W, N, E, S))
 
 Button7.grid(column=0, row=3, sticky=(W, N, E, S))
 Button8.grid(column=1, row=3, sticky=(W, N, E, S))
 Button9.grid(column=2, row=3, sticky=(W, N, E, S))
 Button_sin.grid(column=3, row=3, sticky=(W, N, E, S))
 Button_cos.grid(column=4, row=3, sticky=(W, N, E, S))
-Button_division.grid(column=5, row=3, sticky=(W, N, E, S))
+Button_asin.grid(column=5, row=3, sticky=(W,N,E,S))
+Button_acos.grid(column=6, row=3, sticky=(W,N,E,S))
+Button_division.grid(column=7, row=3, sticky=(W, N, E, S))
 
 Button4.grid(column=0, row=4, sticky=(W, N, E, S))
 Button5.grid(column=1, row=4, sticky=(W, N, E, S))
 Button6.grid(column=2, row=4, sticky=(W, N, E, S))
 Button_tan.grid(column=3, row=4, sticky=(W, N, E, S))
 Button_ctan.grid(column=4, row=4, sticky=(W, N, E, S))
-Button_multiplicacion.grid(column=5, row=4, sticky=(W, N, E, S))
+Button_atan.grid(column=5, row=4, sticky=(W, N, E, S))
+Button_actan.grid(column=6, row=4, sticky=(W, N, E, S))
+Button_multiplicacion.grid(column=7, row=4, sticky=(W, N, E, S))
 
 Button1.grid(column=0, row=5, sticky=(W, N, E, S))
 Button2.grid(column=1, row=5, sticky=(W, N, E, S))
 Button3.grid(column=2, row=5, sticky=(W, N, E, S))
 Button_log.grid(column=3, row=5, sticky=(W, N, E, S))
 Button_exp.grid(column=4, row=5, sticky=(W, N, E, S))
-Button_suma.grid(column=5, row=5, sticky=(W, N, E, S))
+Button_sinh.grid(column=5, row=5, sticky=(W, N, E, S))
+Button_cosh.grid(column=6, row=5, sticky=(W, N, E, S))
+Button_suma.grid(column=7, row=5, sticky=(W, N, E, S))
 
-Button_e.grid(column=0, row=6, sticky=(W, N, E, S))
+Button_resolver.grid(column=0, row=6, sticky=(W, N, E, S))
 Button0.grid(column=1, row=6, sticky=(W, N, E, S)) #Con sticky agrega para anclar de lado a lado el 0.
 Button_punto.grid(column=2, row=6, sticky=(W, N, E, S))
 Button_sqrt.grid(column=3, row=6, sticky=(W, N, E, S))
 Button_cbrt.grid(column=4, row=6, sticky=(W, N, E, S))
-Button_resta.grid(column=5, row=6, sticky=(W, N, E, S))
+Button_tanh.grid(column=5, row=6, sticky=(W, N, E, S))
+Button_ctanh.grid(column=6, row=6, sticky=(W, N, E, S))
+Button_resta.grid(column=7, row=6, sticky=(W, N, E, S))
 
+Button_x.grid(column=0, row=7, sticky=(W, N, E, S))
+Button_y.grid(column=1, row=7, sticky=(W, N, E, S))
+Button_raiz_cuadrada.grid(column=2, row=7, sticky=(W, N, E, S))
+Button_asinh.grid(column=3, row=7, sticky=(W, N, E, S))
+Button_acosh.grid(column=4, row=7, sticky=(W, N, E, S))
+Button_atanh.grid(column=5, row=7, sticky=(W, N, E, S))
+Button_actanh.grid(column=6, row=7, sticky=(W, N, E, S)) 
+Button_igual.grid(column=7, row=7, sticky=(W, N, E, S))
 
-Button_potencia.grid(column=0, row=7, sticky=(W, N, E, S))
-Button_x.grid(column=1, row=7, sticky=(W, N, E, S))
-Button_y.grid(column=2, row=7, sticky=(W, N, E, S))
-Button_raiz_cuadrada.grid(column=3, row=7, sticky=(W, N, E, S))
-Button_igual.grid(column=4, row=7, columnspan=2, sticky=(W, N, E, S))
 
 for child in mainframe.winfo_children():
     child.grid_configure(ipady=10, padx=1, pady=1)
